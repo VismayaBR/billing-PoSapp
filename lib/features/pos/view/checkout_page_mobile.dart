@@ -128,8 +128,9 @@ class CheckoutPageMobile extends StatelessWidget {
                             onTap: () async {
                               pos.checkoutLoading = true;
                               print('*******************');
+                              
                               final pdfFile = await pos.generateInvoice(pos);
-                              pos.saveSingleSale(context);
+                              // pos.saveSingleSale(context);
                             
                               
                               await Printing.layoutPdf(

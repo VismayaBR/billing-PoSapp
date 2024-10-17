@@ -1882,6 +1882,7 @@ class PosScreenViewModel with ChangeNotifier {
 
   Future<Uint8List> generateInvoice(PosScreenViewModel pos) async {
     print('****');
+    
     saveSingleSale(BuildContext context) async {
       print('****');
       if (customerNameController.text.isEmpty &&
