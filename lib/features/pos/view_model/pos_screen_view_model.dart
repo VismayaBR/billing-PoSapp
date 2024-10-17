@@ -49,6 +49,7 @@ import 'package:sunmi_printer_plus/column_maker.dart';
 import 'package:sunmi_printer_plus/enums.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:sunmi_printer_plus/sunmi_style.dart';
+import 'package:translator/translator.dart';
 
 import '../../../app_config/server_addresses.dart';
 import '../../../helper/app_colors.dart';
@@ -73,6 +74,29 @@ class PosScreenViewModel with ChangeNotifier {
     selectedReportType = 'Summary-Billwise';
     notifyListeners();
   }
+
+List<String> translatedNames = [];
+
+Future<List<String>> translateItems(List cartItems) async {
+  final translator = GoogleTranslator();
+  
+  // Clear the translatedNames list to avoid duplicates
+  translatedNames.clear();
+
+  // Iterate through each item in cartItems to translate
+  for (var item in cartItems) {
+    print('>>><<<${item}');
+    // Translate the name of each item to Arabic
+    var translation = await translator.translate(item, to: 'ar');
+    translatedNames.add(translation.text); // Add the translated text to the list
+  }
+
+  notifyListeners(); // Notify listeners about the changes, if applicable
+  print('>>>>>>>>>>>>>>>>>>> $translatedNames'); // Print translated names
+
+  return translatedNames; // Return the list of translated names
+}
+
 
   bool checkOpeningDate(String date) {
     log('received Date$date');
@@ -1882,7 +1906,7 @@ class PosScreenViewModel with ChangeNotifier {
 
   Future<Uint8List> generateInvoice(PosScreenViewModel pos) async {
     print('****');
-    
+
     saveSingleSale(BuildContext context) async {
       print('****');
       if (customerNameController.text.isEmpty &&
@@ -2037,6 +2061,9 @@ class PosScreenViewModel with ChangeNotifier {
       final ByteData fontData =
           await rootBundle.load("assets/fonts/Roboto-Regular.ttf");
       final pw.Font ttf = pw.Font.ttf(fontData);
+      final ByteData fontDataAr =
+          await rootBundle.load("assets/fonts/cairo.ttf");
+      final pw.Font ttfAr = pw.Font.ttf(fontDataAr);
 
       final ByteData fontData2 =
           await rootBundle.load("assets/fonts/Amiri-Regular.ttf");
@@ -2100,11 +2127,11 @@ class PosScreenViewModel with ChangeNotifier {
       final Uint8List lastBytes12 = last12.buffer.asUint8List();
       final pw.MemoryImage text13 = pw.MemoryImage(lastBytes12);
 
-       final ByteData last13 = await rootBundle.load("assets/images/card.png");
+      final ByteData last13 = await rootBundle.load("assets/images/card.png");
       final Uint8List lastBytes13 = last13.buffer.asUint8List();
       final pw.MemoryImage text14 = pw.MemoryImage(lastBytes13);
 
-       final ByteData last14 = await rootBundle.load("assets/images/cheque.png");
+      final ByteData last14 = await rootBundle.load("assets/images/cheque.png");
       final Uint8List lastBytes14 = last14.buffer.asUint8List();
       final pw.MemoryImage text15 = pw.MemoryImage(lastBytes14);
 
@@ -2258,6 +2285,20 @@ class PosScreenViewModel with ChangeNotifier {
                   itemCount: pos.cartItems.length,
                   itemBuilder: (context, index) {
                     final item = pos.cartItems[index];
+                    var arItem=[];
+                     arItem.add( pos.cartItems[index].name);
+
+                    pos.translateItems(arItem);
+                   
+                   
+
+                    print('........................$arItem');
+
+                    setState() {
+                          print('11111111....111111111');
+                          
+ pos.translateItems(arItem);
+                    }
 
                     return pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -2267,6 +2308,17 @@ class PosScreenViewModel with ChangeNotifier {
                           child: pw.Text(item.name.toString(),
                               style: pw.TextStyle(font: ttf, fontSize: 8)),
                         ),
+                        pw.Row(
+                            mainAxisAlignment: pw.MainAxisAlignment.end,
+                            children: [
+                              pw.Padding(
+                                padding: pw.EdgeInsets.only(top: 2.0),
+                                child: pw.Text(pos.translatedNames[0],
+                                    style:
+                                        pw.TextStyle(font: ttf2, fontSize: 8),
+                                    textDirection: pw.TextDirection.rtl),
+                              ),
+                            ]),
 
                         // pw.Divider(thickness: 0.01),
                         pw.Row(

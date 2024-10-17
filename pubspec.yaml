@@ -64,7 +64,7 @@ dependencies:
   flutter_translate: ^4.1.0
   # epson_epos: ^0.0.2
   # esc_pos_utils: ^1.1.0
-  translator: any 
+  translator: ^0.1.7 
   barcode: ^2.2.8
 
 
@@ -97,6 +97,7 @@ flutter:
     - assets/icons/
     - assets/fonts/Roboto-Regular.ttf.
     - assets/fonts/Amiri-Regular.ttf
+    - assets/fonts/cairo.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
