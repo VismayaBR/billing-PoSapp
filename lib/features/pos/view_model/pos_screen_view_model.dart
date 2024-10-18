@@ -75,29 +75,6 @@ class PosScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-List<String> translatedNames = [];
-
-Future<List<String>> translateItems(List cartItems) async {
-  final translator = GoogleTranslator();
-  
-  // Clear the translatedNames list to avoid duplicates
-  translatedNames.clear();
-
-  // Iterate through each item in cartItems to translate
-  for (var item in cartItems) {
-    print('>>><<<${item}');
-    // Translate the name of each item to Arabic
-    var translation = await translator.translate(item, to: 'ar');
-    translatedNames.add(translation.text); // Add the translated text to the list
-  }
-
-  notifyListeners(); // Notify listeners about the changes, if applicable
-  print('>>>>>>>>>>>>>>>>>>> $translatedNames'); // Print translated names
-
-  return translatedNames; // Return the list of translated names
-}
-
-
   bool checkOpeningDate(String date) {
     log('received Date$date');
     log('received Date${date.substring(8, 10)}');
@@ -389,7 +366,7 @@ Future<List<String>> translateItems(List cartItems) async {
         if (productCategoriesResponse!.success == true) {
           productCategories = productCategoriesResponse!.data ?? [];
           productCategories!
-              .insert(0, Datum(id: 0, name: 'All', arabicName: ''));
+              .insert(0, Datum(id: 0, name: 'All'));
           if (productCategories!.length == 1) {
             switchProductAndService(1);
           }
@@ -438,7 +415,7 @@ Future<List<String>> translateItems(List cartItems) async {
           log(serviceCategoriesResponse!.data.toString());
           serviceCategories = serviceCategoriesResponse!.data ?? [];
           serviceCategories!
-              .insert(0, Datum(id: 0, name: 'All', arabicName: ''));
+              .insert(0, Datum(id: 0, name: 'All'));
           if (serviceCategories!.length == 1) {
             switchProductAndService(0);
           }
@@ -848,9 +825,9 @@ Future<List<String>> translateItems(List cartItems) async {
       cartItems.add(ProductDatum(
           id: data.services![i].serviceId,
           name: data.services![i].serviceName,
-          arabicName: serviceList![serviceList!.indexWhere(
-                  (element) => element.id == data.services![i].serviceId)]
-              .arabicName,
+          // arabicName: serviceList![serviceList!.indexWhere(
+          //         (element) => element.id == data.services![i].serviceId)]
+          //     .name,
           groupId: serviceList![serviceList!.indexWhere(
                   (element) => element.id == data.services![i].serviceId)]
               .groupId,
@@ -2285,21 +2262,14 @@ Future<List<String>> translateItems(List cartItems) async {
                   itemCount: pos.cartItems.length,
                   itemBuilder: (context, index) {
                     final item = pos.cartItems[index];
-                    var arItem=[];
-                     arItem.add( pos.cartItems[index].name);
+                  print('---------------------${pos.cartItems[index].name}');
+                  print('---------------------${pos.cartItems[index].arabicName}');
 
-                    pos.translateItems(arItem);
                    
                    
 
-                    print('........................$arItem');
-
-                    setState() {
-                          print('11111111....111111111');
-                          
- pos.translateItems(arItem);
-                    }
-
+                    
+                   
                     return pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
@@ -2308,12 +2278,13 @@ Future<List<String>> translateItems(List cartItems) async {
                           child: pw.Text(item.name.toString(),
                               style: pw.TextStyle(font: ttf, fontSize: 8)),
                         ),
+                        // if(item.arabicName!=null)
                         pw.Row(
                             mainAxisAlignment: pw.MainAxisAlignment.end,
                             children: [
                               pw.Padding(
                                 padding: pw.EdgeInsets.only(top: 2.0),
-                                child: pw.Text(pos.translatedNames[0],
+                                child: pw.Text(item.arabicName.toString(),
                                     style:
                                         pw.TextStyle(font: ttf2, fontSize: 8),
                                     textDirection: pw.TextDirection.rtl),

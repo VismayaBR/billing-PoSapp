@@ -35,7 +35,7 @@ class ServiceResponseModel {
 class ServiceData {
   int? id;
   String? name;
-  String? arabicName;
+  // String? arabicName;
   int? groupId;
   int? price;
   int? time;
@@ -47,7 +47,7 @@ class ServiceData {
   ServiceData({
     this.id,
     this.name,
-    this.arabicName,
+    // this.arabicName,
     this.groupId,
     this.price,
     this.time,
@@ -60,7 +60,7 @@ class ServiceData {
   factory ServiceData.fromMap(Map<String, dynamic> json) => ServiceData(
     id: json["id"],
     name: json["name"],
-    arabicName: json["arabic_name"],
+    // arabicName: json["arabic_name"],
     groupId: json["group_id"],
     price: json["price"],
     time: json["time"],
@@ -73,7 +73,7 @@ class ServiceData {
   Map<String, dynamic> toMap() => {
     "id": id,
     "name": name,
-    "arabic_name": arabicName,
+    // "arabic_name": arabicName,
     "spa_service_group_id": groupId,
     "price": price,
     "time": time,

@@ -65,7 +65,7 @@ class ProductDatum {
   factory ProductDatum.fromMap(Map<String, dynamic> json) => ProductDatum(
     id: json["id"],
     name: json["name"],
-    arabicName: json["arabic_name"],
+    arabicName: json["name_arabic"]??"",
     groupId: json["group_id"],
     group: json["group"],
     price: json["price"],
@@ -81,7 +81,7 @@ class ProductDatum {
   Map<String, dynamic> toMap() => {
     "id": id,
     "name": name,
-    "arabic_name": arabicName,
+    "name_arabic": arabicName,
     "group_id": groupId,
     "group": group,
     "price": price,

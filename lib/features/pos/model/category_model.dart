@@ -35,23 +35,23 @@ class CategoryModel {
 class Datum {
   int? id;
   String? name;
-  String? arabicName;
+  // String? arabicName;
 
   Datum({
     this.id,
     this.name,
-    this.arabicName,
+    // this.arabicName,
   });
 
   factory Datum.fromMap(Map<String, dynamic> json) => Datum(
     id: json["id"],
     name: json["name"],
-    arabicName: json["arabic_name"],
+    // arabicName: json["arabic_name"],
   );
 
   Map<String, dynamic> toMap() => {
     "id": id,
     "name": name,
-    "arabic_name": arabicName,
+    // "arabic_name": arabicName,
   };
 }

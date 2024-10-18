@@ -71,7 +71,7 @@ class DataBaseHelper{
     CREATE TABLE products(
     id INTEGER PRIMARY KEY,
     name TEXT,
-    arabic_name TEXT,
+    name_arabic TEXT,
     group_id INTEGER,
     `group` TEXT,
     price INTEGER,
@@ -88,7 +88,7 @@ class DataBaseHelper{
     CREATE TABLE services(
     id INTEGER PRIMARY KEY,
     name TEXT,
-    arabic_name TEXT,
+    name_arabic TEXT,
     group_id INTEGER,
     `group` TEXT,
     price INTEGER,
