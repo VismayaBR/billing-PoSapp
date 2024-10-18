@@ -111,6 +111,9 @@ class CheckoutPageMobile extends StatelessWidget {
 
                             
                               await pos.shareInvoiceToWhatsApp(pos);
+
+                                   await _handlePayment(context, pos);
+
                             },
                             child: Image.asset('assets/images/whatsapp.png'),
                           ),

@@ -2278,7 +2278,7 @@ class PosScreenViewModel with ChangeNotifier {
                           child: pw.Text(item.name.toString(),
                               style: pw.TextStyle(font: ttf, fontSize: 8)),
                         ),
-                        // if(item.arabicName!=null)
+                        if(item.arabicName!=null)
                         pw.Row(
                             mainAxisAlignment: pw.MainAxisAlignment.end,
                             children: [
@@ -2635,6 +2635,8 @@ class PosScreenViewModel with ChangeNotifier {
   ) async {
     try {
       // Generate the invoice PDF
+      
+      
       final pdfBytes = await generateInvoice(pos);
       final tempDir = await getTemporaryDirectory();
       final pdfFile = File('${tempDir.path}/invoice.pdf');
