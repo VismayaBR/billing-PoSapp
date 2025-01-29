@@ -128,6 +128,22 @@ class PosRepository{
   }
 }
 
+ productsSearchName(String searchText) async {
+  try {
+    String type = 'Product';
+    http.Response response = await httpService.request(
+      url: '${ServerAddresses.baseUrl}${type == 'Product' ? Api.productSearch : Api.productSearch}',
+      method: Method.post,
+      params: {'name': searchText},
+    );
+    log(response.body);
+    return jsonDecode(response.body);
+  } catch (e) {
+    log('Error in productsSearch: $e');
+    return null;
+  }
+}
+
 
   fetchEmployees() async {
     try {

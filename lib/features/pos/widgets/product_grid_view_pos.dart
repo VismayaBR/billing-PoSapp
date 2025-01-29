@@ -55,7 +55,7 @@ class _ProductsGridViewState extends State<ProductsGridView> {
           final matchesCategory = pos.categorySelectedId == 0
               ? true
               : product.category_id == pos.categorySelectedId.toString();
-          final matchesSearch = product.name!.toLowerCase().contains(_searchText);
+          final matchesSearch = product.name!.toLowerCase().contains(_searchText)||product.arabicName!.toLowerCase().contains(_searchText);
           return matchesCategory && matchesSearch;
         }).toList();
 

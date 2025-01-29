@@ -1169,9 +1169,10 @@ class PosScreenViewModel with ChangeNotifier {
 
       // Add payments to the sale
       for (var payment in paymentMethods) {
+        // print('...................${payment.id}');
         singleSale!.payments!.add(SingleLocalSalePayment(
-          id: payment.id,
-          paymentMethod: payment.type,
+          id: selectedMethod=='CARD'?18: payment.id,
+          paymentMethod: selectedMethod=='CARD'?'CARD': payment.type,
           amount: payment.amount,
           saleId: id,
         ));
@@ -2119,10 +2120,10 @@ class PosScreenViewModel with ChangeNotifier {
 
       pdf.addPage(
         pw.Page(
-          pageFormat: PdfPageFormat(80 * PdfPageFormat.mm,
+          pageFormat: const PdfPageFormat(80 * PdfPageFormat.mm,
               double.infinity), // Set height to undefined for dynamic height
           // margin: pw.EdgeInsets.all(5 * PdfPageFormat.mm),
-          margin: pw.EdgeInsets.only(
+          margin: const pw.EdgeInsets.only(
               left: 5 * PdfPageFormat.mm,
               top: 5 * PdfPageFormat.mm,
               bottom: 5 * PdfPageFormat.mm,
